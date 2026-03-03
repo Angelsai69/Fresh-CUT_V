@@ -13,13 +13,15 @@ const TABS = [
   { id: 'profile', icon: User,         label: 'Profile' },
 ]
 
-// Per-tab indicator + icon colors
-const TAB_COLORS = {
-  home:    { active: tokens.colors.navy,    indicator: `linear-gradient(90deg, ${tokens.colors.navy}, #1A3D5C)` },
-  list:    { active: tokens.colors.mintEnd, indicator: `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})` },
-  share:   { active: tokens.colors.lemon,   indicator: `linear-gradient(90deg, ${tokens.colors.lemon}, #F0B429)` },
+// Per-tab indicator + icon colors — home uses light grey in dark mode
+const getTabColors = (dark) => ({
+  home:    dark
+    ? { active: '#A0ADB8', indicator: 'linear-gradient(90deg, #8A96A3, #A0ADB8)' }
+    : { active: tokens.colors.navy, indicator: `linear-gradient(90deg, ${tokens.colors.navy}, #1A3D5C)` },
+  list:    { active: tokens.colors.mintEnd,   indicator: `linear-gradient(90deg, ${tokens.colors.mintStart}, ${tokens.colors.mintEnd})` },
+  share:   { active: tokens.colors.lemon,     indicator: `linear-gradient(90deg, ${tokens.colors.lemon}, #F0B429)` },
   profile: { active: tokens.colors.mintStart, indicator: `linear-gradient(90deg, rgba(123,232,200,0.6), ${tokens.colors.mintStart})` },
-}
+})
 
 const SOCIAL = [
   { icon: Instagram, label: 'Instagram' },
@@ -253,7 +255,7 @@ export default function App() {
           {TABS.map((tab) => {
             const Icon = tab.icon
             const isActive = activeTab === tab.id
-            const tabColor = TAB_COLORS[tab.id]
+            const tabColor = getTabColors(dark)[tab.id]
             return (
               <motion.button
                 key={tab.id}

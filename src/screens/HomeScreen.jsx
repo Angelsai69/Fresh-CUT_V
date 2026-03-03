@@ -248,16 +248,18 @@ function ParallaxHero({ t, onBonusOpen }) {
 
   return (
     <section style={{
-      padding: '40px 24px 40px',
-      maxWidth: 640,
-      margin: '0 auto',
-      textAlign: 'center',
+      padding: '40px 0 40px',
+      width: '100%',
       position: 'relative',
       overflow: 'hidden',
+      textAlign: 'center',
     }}>
-      {/* ── ANIMATED BACKGROUND ORBS ── */}
-      {/* Two large blurred gradient orbs drifting slowly — GPU composited via CSS animation */}
-      <div aria-hidden="true" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden', borderRadius: 'inherit' }}>
+      {/* ── ANIMATED BACKGROUND ORBS — full viewport bleed ── */}
+      <div aria-hidden="true" style={{
+        position: 'absolute', inset: 0,
+        width: '100%', height: '100%',
+        pointerEvents: 'none', zIndex: 0, overflow: 'hidden',
+      }}>
         {/* Orb 1 — mint, top-left drift */}
         <motion.div
           animate={{
@@ -277,7 +279,7 @@ function ParallaxHero({ t, onBonusOpen }) {
             willChange: 'transform',
           }}
         />
-        {/* Orb 2 — coral/lemon, bottom-right drift, offset phase */}
+        {/* Orb 2 — lemon, bottom-right drift, offset phase */}
         <motion.div
           animate={{
             x: ['10%', '-6%', '10%'],
@@ -296,29 +298,32 @@ function ParallaxHero({ t, onBonusOpen }) {
             willChange: 'transform',
           }}
         />
-        {/* Orb 3 — coral accent, slow centre pulse */}
+        {/* Orb 3 — coral, drifts AND morphs size with scaleX/scaleY desync for organic feel */}
         <motion.div
           animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.5, 0.8, 0.5],
+            x:      ['-5%',  '10%',  '3%',   '-8%',  '-5%'],
+            y:      [ '5%',  '-8%',  '12%',  '-3%',   '5%'],
+            scaleX: [ 1,      1.28,   0.82,   1.15,    1  ],
+            scaleY: [ 1,      0.88,   1.24,   0.92,    1  ],
+            opacity:[ 0.5,    0.85,   0.58,   0.72,   0.5 ],
           }}
-          transition={{ duration: 10, ease: 'easeInOut', repeat: Infinity, delay: 4 }}
+          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, delay: 3.5 }}
           style={{
             position: 'absolute',
-            top: '30%', left: '35%',
-            width: '40%', height: '40%',
+            top: '28%', left: '32%',
+            width: '44%', height: '44%',
             borderRadius: '50%',
             background: t.isDark
-              ? `radial-gradient(circle, ${tokens.colors.coral}12 0%, transparent 70%)`
-              : `radial-gradient(circle, ${tokens.colors.coral}15 0%, transparent 70%)`,
-            filter: 'blur(40px)',
+              ? `radial-gradient(circle, ${tokens.colors.coral}14 0%, transparent 68%)`
+              : `radial-gradient(circle, ${tokens.colors.coral}18 0%, transparent 68%)`,
+            filter: 'blur(38px)',
             willChange: 'transform, opacity',
           }}
         />
       </div>
 
-      {/* All hero content sits above orbs */}
-      <div style={{ position: 'relative', zIndex: 1 }}>
+      {/* All hero content sits above orbs — padded so text never touches edges */}
+      <div style={{ position: 'relative', zIndex: 1, padding: '0 clamp(20px, 5vw, 48px)', width: '100%', boxSizing: 'border-box' }}>
       {/* Trust badges — above headline */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
