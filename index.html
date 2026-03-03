@@ -7,10 +7,10 @@
     <meta name="description" content="Compare grocery prices near you with AI-powered insights." />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>PriceAI – Smart Grocery Comparison</title>
+    <title>Fresh~CUT – Smart Grocery Comparison</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
     <style>
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { -webkit-text-size-adjust: 100%; }
@@ -24,6 +24,8 @@
       ::-webkit-scrollbar { display: none; }
       input, button { font-family: inherit; }
       * { -webkit-tap-highlight-color: transparent; }
+      /* Scope will-change to active scroll only — avoids permanent GPU layer cost on subtitle */
+      .is-scrolling .parallax-subtitle { will-change: transform; }
     </style>
   </head>
   <body>

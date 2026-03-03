@@ -6,15 +6,24 @@ import { tokens, mintGradient } from '../tokens'
 export function StoreCard({ store, t }) {
   const [expanded, setExpanded] = useState(false)
 
+  // Light mode: soft aqua wash. Dark mode: original card colour (t.card = #132C3A)
+  const cardBg    = t.isDark
+    ? t.card
+    : 'rgba(123,232,200,0.13)'
+  const cardBorder = t.isDark
+    ? t.border
+    : 'rgba(123,232,200,0.25)'
+
   return (
     <motion.div
       layout
       transition={tokens.motion.standard}
       style={{
-        background: t.card,
+        background: cardBg,
         borderRadius: tokens.radius.hero,
         boxShadow: t.shadow1,
         overflow: 'hidden',
+        border: `1px solid ${cardBorder}`,
       }}
     >
       <div style={{ padding: '20px 24px' }}>
@@ -49,7 +58,7 @@ export function StoreCard({ store, t }) {
               {store.badge}
             </span>
           </div>
-          <span style={{ fontSize: tokens.font.micro.size, color: t.textSub, fontWeight: 500 }}>
+          <span style={{ fontSize: tokens.font.micro.size, color: t.textSub, fontWeight: 450 }}>
             {store.distance} away
           </span>
         </div>
@@ -219,7 +228,7 @@ export function StoreCard({ store, t }) {
                         style={{
                           fontSize: tokens.font.small.size,
                           color: 'white',
-                          fontWeight: 500,
+                          fontWeight: 450,
                         }}
                       >
                         {deal}
@@ -229,16 +238,17 @@ export function StoreCard({ store, t }) {
                 </div>
               </div>
 
-              {/* AI Tip Card */}
+              {/* AI Tip Card — dark navy background */}
               <div
                 style={{
                   borderRadius: tokens.radius.cardLg,
                   padding: '20px 24px',
-                  background: t.bg,
-                  border: `1px solid ${tokens.colors.mintStart}25`,
+                  background: tokens.colors.navy,   // deep navy as requested
+                  border: 'none',
                   display: 'flex',
                   gap: 14,
                   alignItems: 'flex-start',
+                  boxShadow: '0 4px 20px rgba(15,43,70,0.3)',
                 }}
               >
                 <div
@@ -260,18 +270,18 @@ export function StoreCard({ store, t }) {
                     style={{
                       fontSize: tokens.font.micro.size,
                       fontWeight: 700,
-                      color: tokens.colors.mintEnd,
+                      color: tokens.colors.mintStart,
                       margin: '0 0 4px',
                       textTransform: 'uppercase',
                       letterSpacing: '0.5px',
                     }}
                   >
-                    AI Tip
+                    AI Pro Tip
                   </p>
                   <p
                     style={{
                       fontSize: tokens.font.small.size,
-                      color: t.text,
+                      color: 'rgba(255,255,255,0.82)',
                       margin: 0,
                       lineHeight: 1.55,
                     }}
